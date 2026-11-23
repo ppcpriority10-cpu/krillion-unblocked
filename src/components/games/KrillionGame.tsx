@@ -177,9 +177,10 @@ function KrillionInner({ mode = "daily" }: { mode?: "daily" | "unlimited" }) {
   const showInvalid = useCallback(
     (msg: string) => {
       play("buzz");
+      // stays visible until the user types again (onChange clears it) or
+      // moves on (next() clears it) — the old 2.4s auto-clear flashed by
+      // too fast to read, so a rejected answer looked like no answer at all
       setInvalid(msg);
-      if (invalidTimer.current) window.clearTimeout(invalidTimer.current);
-      invalidTimer.current = window.setTimeout(() => setInvalid(null), 2400);
     },
     [play]
   );

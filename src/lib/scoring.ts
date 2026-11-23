@@ -99,6 +99,10 @@ export function tierForTierKey(key: TierKey, mode: ScoringMode): Tier {
 /** Normalise a typed answer: lowercase, strip punctuation/articles/spaces. */
 export function normalizeAnswer(raw: string): string {
   let s = raw.toLowerCase().trim();
+  // strip accents so "Vélodrome" / "Cancún" / "Zürich" match plain-ASCII
+  // typing — without this, accented bank answers could never be typed
+  s = s.normalize("NFD").replace(/[̀-ͯ]/g, "");
+  s = s.replace(/[ø]/g, "o").replace(/[ł]/g, "l").replace(/[đ]/g, "d").replace(/æ/g, "ae").replace(/œ/g, "oe").replace(/ß/g, "ss");
   s = s.replace(/['’`]/g, "");
   s = s.replace(/[^a-z0-9 ]+/g, " ");
   s = s.replace(/\s+/g, " ").trim();

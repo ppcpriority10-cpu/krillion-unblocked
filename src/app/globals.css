@@ -1,0 +1,1067 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-serif), Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  /* sea scale — used by game pages (text-sea-700) and the Krillion chip */
+  --color-sea-500: #2e9bd6;
+  --color-sea-600: #1b86b8;
+  --color-sea-700: #0e5e92;
+  --color-sea-800: #093b66;
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Editorial brand tokens (deep navy + coin gold, like a games desk) */
+  --color-steel: var(--steel);
+  --color-steel-soft: var(--steel-soft);
+  --color-board: var(--board);
+  --color-coin: var(--coin);
+  --color-ink: var(--ink);
+
+  /* Game-shell tokens — floating panel on a warm canvas */
+  --color-slate: var(--slate);
+  --color-slate-strong: var(--slate-strong);
+  --color-board-strong: var(--board-strong);
+  --color-track: var(--track);
+  --color-arena: var(--arena);
+}
+
+/* ---------- pixel font helpers (fonts loaded in layout.tsx) ---------- */
+.font-pixel {
+  font-family: var(--font-pixel), monospace;
+}
+.font-pixel-ui {
+  font-family: var(--font-pixel-ui), var(--font-mono), monospace;
+}
+.font-game-mono {
+  font-family: var(--font-game-mono), var(--font-mono), monospace;
+}
+/* v23: clean rounded sans for the new Krillion UI (not pixel). */
+.font-game-ui {
+  font-family: var(--font-game-ui), ui-rounded, system-ui, sans-serif;
+}
+/* v23: soft frosted-glass panel for the new Krillion UI. */
+.game-glass {
+  background: rgba(8, 28, 44, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(12px);
+  color: #fff;
+}
+/* v23: clean modern game logo — bold rounded type, soft glow. */
+.game-logo {
+  font-size: clamp(2rem, 7vw, 3.8rem);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  text-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(57, 198, 232, 0.35);
+  text-transform: uppercase;
+}
+
+:root {
+  --radius: 0.625rem;
+
+  /* Editorial palette */
+  --steel: #1b4368;
+  --steel-soft: #e3eef5;
+  --board: #f7f7f5;
+  --coin: #ffc250;
+  --ink: #0a0a0a;
+
+  /* Game-shell palette */
+  --slate: #7d92a4;
+  --slate-strong: #6c8194;
+  --board-strong: #dededa;
+  --track: #d3d3cf;
+  --arena: #d8d8d4;
+
+  /* shadcn-compatible tokens — light (warm cream hub ground, royal-blue accent) */
+  --background: #faf6ee;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --primary: #1d4ed8;
+  --primary-foreground: #ffffff;
+  --secondary: #f3eee1;
+  --secondary-foreground: #171717;
+  --muted: #f3eee1;
+  --muted-foreground: #6e6759;
+  --accent: #f3eee1;
+  --accent-foreground: #171717;
+  --destructive: #bc0404;
+  --border: #e7dfcb;
+  --input: #d8d0bc;
+  --ring: #1d4ed8;
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+  --card: #171717;
+  --card-foreground: #fafafa;
+  --popover: #171717;
+  --popover-foreground: #fafafa;
+  --primary: #96bfff;
+  --primary-foreground: #0a0a0a;
+  --secondary: #262626;
+  --secondary-foreground: #fafafa;
+  --muted: #262626;
+  --muted-foreground: #a1a1a1;
+  --accent: #262626;
+  --accent-foreground: #fafafa;
+  --destructive: #dd8280;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.15);
+  --ring: #96bfff;
+  --steel: #96bfff;
+  --steel-soft: rgba(150, 191, 255, 0.12);
+  --board: #191b1d;
+  --coin: #ffc250;
+  --ink: #fafafa;
+  --slate: #5a708a;
+  --slate-strong: #4c617a;
+  --board-strong: #26282a;
+  --track: #2a2c2e;
+  --arena: #141619;
+}
+
+/* ---------- Word Hunt premium tiles — cream bevel on a grass board ---------- */
+.wh-tile {
+  background: linear-gradient(180deg, #FFFBEA 0%, #F9EDC4 55%, #F0DC9E 100%);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -3px 0 rgba(154, 116, 34, 0.35),
+    0 4px 0 0 #C9A94F,
+    0 10px 16px -8px rgba(4, 24, 14, 0.6);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+.wh-tile:hover {
+  filter: brightness(1.04);
+}
+.wh-tile-on {
+  background: linear-gradient(180deg, #FFF3B0 0%, #FFE066 60%, #F5CE3E 100%);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -3px 0 rgba(154, 116, 34, 0.4),
+    0 0 0 3px rgba(255, 224, 102, 0.4),
+    0 0 22px 3px rgba(255, 214, 74, 0.6),
+    0 3px 0 0 #C9A93F;
+}
+
+/* ---------- Sequence neon pads — glossy arcade buttons ---------- */
+.sq-pad {
+  position: relative;
+  transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
+}
+.sq-pad::after {
+  /* glass gloss */
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 40%;
+  top: 8%;
+  height: 26%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.06));
+  pointer-events: none;
+}
+.sq-pad-on {
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.92),
+    0 0 34px 8px var(--sq-glow, rgba(255, 255, 255, 0.55)),
+    0 3px 0 0 rgba(0, 0, 0, 0.35) !important;
+  filter: brightness(1.18) saturate(1.15);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-serif);
+  }
+  ::selection {
+    background: #d7e6f2;
+    color: #1b4368;
+  }
+}
+
+/* ---------- Scrollbar for game word lists ---------- */
+.scroll-slim {
+  scrollbar-width: thin;
+  scrollbar-color: #d4d4d4 transparent;
+}
+.scroll-slim::-webkit-scrollbar {
+  width: 8px;
+}
+.scroll-slim::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scroll-slim::-webkit-scrollbar-thumb {
+  background: #d4d4d4;
+  border-radius: 999px;
+}
+
+/* ============================================================
+   PlayDaily-style game-shell utilities
+   ============================================================ */
+
+/* Chunky arcade CTA — hard bottom shadow that presses down on click */
+.gd-btn {
+  position: relative;
+  border-radius: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  transition: transform 120ms ease, box-shadow 120ms ease, filter 150ms ease;
+  box-shadow: 0 5px 0 0 var(--gd-btn-shadow, rgba(0, 0, 0, 0.3));
+  will-change: transform;
+}
+.gd-btn:hover:not(:disabled) {
+  filter: brightness(1.07);
+}
+.gd-btn:active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 0 var(--gd-btn-shadow, rgba(0, 0, 0, 0.3));
+}
+.gd-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: 0 3px 0 0 var(--gd-btn-shadow, rgba(0, 0, 0, 0.3));
+}
+
+/* Dark HUD pill — score / coin counters floating over the game canvas */
+.gd-hud {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 12px;
+  background: rgba(9, 20, 33, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  color: #fff;
+  backdrop-filter: blur(4px);
+}
+
+/* Mode tabs row (CLASSIC / ENDLESS style) */
+.gd-tab {
+  border-radius: 12px;
+  padding: 0.6rem 1.5rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: background 150ms ease, color 150ms ease, box-shadow 150ms ease;
+}
+
+/* Big pixel-flavoured game logo (layered hard shadows, no webfont needed) */
+.gd-logo {
+  font-family: var(--font-mono);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  text-shadow:
+    0 3px 0 rgba(0, 0, 0, 0.35),
+    0 6px 0 rgba(0, 0, 0, 0.18),
+    0 10px 24px rgba(0, 0, 0, 0.35);
+}
+.gd-logo-sub {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.42em;
+}
+
+/* Soft white panel that floats on a themed canvas */
+.gd-panel {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 20px;
+  box-shadow: 0 14px 34px -16px rgba(4, 18, 32, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* Ghost (secondary) button over themed canvas */
+.gd-ghost {
+  border-radius: 12px;
+  background: rgba(9, 20, 33, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  transition: background 150ms ease, transform 120ms ease;
+}
+.gd-ghost:hover {
+  background: rgba(9, 20, 33, 0.9);
+}
+.gd-ghost:active {
+  transform: translateY(2px);
+}
+
+/* ---------- Keyframe animations (CSS only) ---------- */
+@keyframes ku-bubble {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-110vh) scale(1.25);
+    opacity: 0;
+  }
+}
+@keyframes ku-pop {
+  0% {
+    transform: scale(0.55);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes ku-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes ku-fade-up {
+  0% {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes ku-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(27, 67, 104, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 22px 2px rgba(27, 67, 104, 0.18);
+  }
+}
+@keyframes ku-pad-flash {
+  0% {
+    filter: brightness(1);
+    transform: scale(1);
+  }
+  50% {
+    filter: brightness(1.5);
+    transform: scale(1.04);
+  }
+  100% {
+    filter: brightness(1);
+    transform: scale(1);
+  }
+}
+@keyframes ku-drift {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.ku-anim-bubble {
+  animation: ku-bubble linear infinite;
+}
+.ku-anim-pop {
+  animation: ku-pop 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.4) both;
+}
+.ku-anim-shake {
+  animation: ku-shake 0.4s ease-in-out both;
+}
+.ku-anim-fade-up {
+  animation: ku-fade-up 0.5s ease-out both;
+}
+.ku-anim-glow {
+  animation: ku-glow 2.4s ease-in-out infinite;
+}
+.ku-anim-pad {
+  animation: ku-pad-flash 0.3s ease-out;
+}
+.ku-anim-drift {
+  animation: ku-drift 4.5s ease-in-out infinite;
+}
+
+@keyframes gd-cloud {
+  0% {
+    transform: translateX(-14vw);
+  }
+  100% {
+    transform: translateX(110vw);
+  }
+}
+@keyframes gd-twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+@keyframes gd-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(2deg);
+  }
+}
+@keyframes gd-rise {
+  0% {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.gd-anim-cloud {
+  animation: gd-cloud linear infinite;
+}
+.gd-anim-twinkle {
+  animation: gd-twinkle 2.6s ease-in-out infinite;
+}
+.gd-anim-bob {
+  animation: gd-bob 5s ease-in-out infinite;
+}
+.gd-anim-rise {
+  animation: gd-rise 0.5s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ku-anim-bubble,
+  .ku-anim-pop,
+  .ku-anim-shake,
+  .ku-anim-fade-up,
+  .ku-anim-glow,
+  .ku-anim-pad,
+  .ku-anim-drift,
+  .gd-anim-cloud,
+  .gd-anim-twinkle,
+  .gd-anim-bob,
+  .gd-anim-rise,
+  .pd-anim-cloud,
+  .pd-anim-fly,
+  .pd-anim-flap,
+  .pd-flap-alt,
+  .pd-anim-sway,
+  .pd-anim-sway-soft,
+  .pd-anim-snow,
+  .pd-anim-bubble,
+  .pd-anim-swim,
+  .pd-anim-foam,
+  .pd-anim-glint,
+  .pd-anim-leaf,
+  .pd-anim-slide,
+  .pd-anim-float-up,
+  .pd-anim-sink,
+  .pd-anim-climb,
+  .pd-anim-bob,
+  .pd-anim-steamer {
+    animation: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ============================================================
+   PlayDaily-style pixel scene + arcade animations (pd-*)
+   ============================================================ */
+
+/* navy HUD chip used across the arcade kit */
+.pd-chip {
+  background: rgba(13, 30, 47, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  color: #fff;
+  backdrop-filter: blur(3px);
+}
+
+/* chunky pixel game logo — pink-red drop shadow like the reference */
+.pd-logo {
+  font-size: clamp(1.5rem, 6.2vw, 3.4rem);
+  line-height: 1.15;
+  letter-spacing: 0.06em;
+  text-shadow:
+    0 4px 0 #d92b5f,
+    0 8px 0 rgba(2, 12, 22, 0.35),
+    0 14px 30px rgba(0, 0, 0, 0.45);
+  text-transform: uppercase;
+}
+
+/* anaglyph title shadow — pink offset one way, cyan the other, like the
+   reference KRILLION logo on the ready screen */
+.pd-logo-anaglyph {
+  text-shadow:
+    3px 0 0 #f4407a,
+    -3px 0 0 #39c6e8,
+    0 6px 0 rgba(2, 12, 22, 0.4),
+    0 14px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* subtle horizontal scanline / CRT texture across a game frame */
+.pd-scanlines {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(2, 8, 16, 0.1) 0px,
+    rgba(2, 8, 16, 0.1) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* slow Ken Burns drift for the 3D scene images — the world feels alive
+   and dimensional instead of a static poster. Very slow (48s) and small
+   (1.02–1.08 scale, ±0.8% pan); `alternate` makes the loop seamless. */
+@keyframes pd-kenburns {
+  from {
+    transform: scale(1.02) translate(-0.8%, -0.6%);
+  }
+  to {
+    transform: scale(1.08) translate(0.8%, 0.6%);
+  }
+}
+.pd-anim-kenburns {
+  animation: pd-kenburns 48s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* gentle light-ray shimmer over the 3D water — a slow breathing glow */
+@keyframes pd-shimmer {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+.pd-anim-shimmer {
+  animation: pd-shimmer 14s ease-in-out infinite;
+}
+
+/* gentle bob for the krill mascot and floating sprites */
+@keyframes pd-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+.pd-anim-bob {
+  animation: pd-bob 2.6s ease-in-out infinite;
+}
+
+/* v24: the krill's slow side-to-side swim — it drifts left and
+   right across the bottom of the screen like a real krill
+   cruising, instead of sitting fixed in the centre. Pairs with
+   pd-anim-bob (vertical) on a nested span. */
+.pd-anim-swim {
+  animation: pd-swim 9s ease-in-out infinite alternate;
+}
+
+@keyframes pd-swim {
+  from {
+    transform: translateX(-36px);
+  }
+  to {
+    transform: translateX(36px);
+  }
+}
+
+/* ---------- scene layers ---------- */
+@keyframes pd-cloud {
+  from {
+    transform: translateX(-24vw);
+  }
+  to {
+    transform: translateX(112vw);
+  }
+}
+.pd-anim-cloud {
+  animation: pd-cloud linear infinite;
+  will-change: transform;
+}
+
+@keyframes pd-fly {
+  from {
+    transform: translateX(-10vw);
+  }
+  to {
+    transform: translateX(110vw);
+  }
+}
+.pd-anim-fly {
+  animation: pd-fly linear infinite;
+  will-change: transform;
+}
+
+/* two-frame wing flap: alternate the stacked sprite frames */
+@keyframes pd-flap-alt {
+  0%,
+  49% {
+    opacity: 0;
+  }
+  50%,
+  100% {
+    opacity: 1;
+  }
+}
+.pd-flap-alt {
+  animation: pd-flap-alt 0.4s steps(1) infinite;
+}
+@keyframes pd-flap-base {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+.pd-anim-flap > :first-child {
+  animation: pd-flap-base 0.4s steps(1) infinite;
+}
+
+@keyframes pd-sway {
+  from {
+    transform: skewX(-16deg) translateX(-16px);
+    opacity: 0.55;
+  }
+  to {
+    transform: skewX(-16deg) translateX(18px);
+    opacity: 1;
+  }
+}
+.pd-anim-sway {
+  animation: pd-sway ease-in-out infinite alternate;
+}
+
+@keyframes pd-sway-soft {
+  from {
+    transform: rotate(-2.5deg);
+  }
+  to {
+    transform: rotate(2.5deg);
+  }
+}
+.pd-anim-sway-soft {
+  animation: pd-sway-soft 4.5s ease-in-out infinite alternate;
+  transform-origin: bottom center;
+}
+
+@keyframes pd-snow {
+  0% {
+    transform: translateY(-4vh);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(62vh);
+    opacity: 0;
+  }
+}
+.pd-anim-snow {
+  animation: pd-snow linear infinite;
+}
+
+@keyframes pd-bubble {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(-58vh);
+    opacity: 0;
+  }
+}
+.pd-anim-bubble {
+  animation: pd-bubble linear infinite;
+}
+
+@keyframes pd-swim-r {
+  from {
+    transform: translateX(-14vw);
+  }
+  to {
+    transform: translateX(114vw);
+  }
+}
+@keyframes pd-swim-l {
+  from {
+    transform: translateX(114vw);
+  }
+  to {
+    transform: translateX(-14vw);
+  }
+}
+.pd-anim-swim.pd-swim-r {
+  animation: pd-swim-r linear infinite;
+}
+.pd-anim-swim.pd-swim-l {
+  animation: pd-swim-l linear infinite;
+}
+
+@keyframes pd-foam {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: 26px;
+  }
+}
+.pd-anim-foam {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.9) 0 12px,
+    transparent 12px 26px
+  );
+  animation: pd-foam 1.3s linear infinite;
+}
+
+@keyframes pd-glint {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateX(6px);
+  }
+}
+.pd-anim-glint {
+  animation: pd-glint 3s ease-in-out infinite;
+}
+
+@keyframes pd-leaf {
+  0% {
+    transform: translateY(-4vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(32vh) translateX(4vw) rotate(160deg);
+  }
+  100% {
+    transform: translateY(68vh) translateX(-2vw) rotate(330deg);
+    opacity: 0;
+  }
+}
+.pd-anim-leaf {
+  animation: pd-leaf linear infinite;
+}
+
+/* ---------- gameplay feedback ---------- */
+@keyframes pd-slide {
+  from {
+    transform: translateY(26px) scale(0.98);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+.pd-anim-slide {
+  animation: pd-slide 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.15) both;
+}
+
+@keyframes pd-float-up {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-54px);
+    opacity: 0;
+  }
+}
+.pd-anim-float-up {
+  animation: pd-float-up 1.5s ease-out both;
+}
+
+@keyframes pd-sink {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    transform: translateY(46vh) scale(0.82);
+    opacity: 0.15;
+  }
+}
+.pd-anim-sink {
+  animation: pd-sink 1.5s cubic-bezier(0.5, 0, 0.8, 0.4) both;
+}
+
+/* Noillirk climb — the krillion rises out of the frame */
+@keyframes pd-climb {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    transform: translateY(-40vh) scale(0.85);
+    opacity: 0.1;
+  }
+}
+.pd-anim-climb {
+  animation: pd-climb 1.5s cubic-bezier(0.3, 0, 0.7, 0.5) both;
+}
+
+@keyframes pd-rise-soft {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.pd-anim-rise {
+  animation: pd-rise-soft 0.5s ease-out both;
+}
+
+@keyframes pd-steam {
+  0% {
+    transform: translateY(0) scaleX(1);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-26px) scaleX(1.4);
+    opacity: 0;
+  }
+}
+.pd-anim-steamer {
+  animation: pd-steam 2.6s ease-out infinite;
+}
+
+/* ---------- reveal animations (playdaily answer visuals) ---------- */
+@keyframes pd-pop-in {
+  0% {
+    transform: scale(0.55);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.pd-anim-pop {
+  animation: pd-pop-in 0.55s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+
+.pd-anim-iconpop {
+  display: inline-block;
+  animation: pd-pop-in 0.65s cubic-bezier(0.34, 1.5, 0.64, 1) both;
+  filter: drop-shadow(0 0 14px rgba(125, 233, 247, 0.45));
+}
+
+@keyframes pd-marker-in {
+  0% {
+    transform: translate(0, -50%) scale(0.4);
+    opacity: 0;
+  }
+  65% {
+    transform: translate(0, -50%) scale(1.25);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, -50%) scale(1);
+    opacity: 1;
+  }
+}
+.pd-anim-marker {
+  animation: pd-marker-in 0.6s cubic-bezier(0.34, 1.4, 0.64, 1) 0.35s both;
+}
+
+/* checking wiggle — the tag beside the sinking krillion */
+@keyframes pd-check-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+.pd-anim-check {
+  animation: pd-check-pulse 0.9s ease-in-out infinite;
+}
+
+/* rarity bar segments light up left-to-right (playdaily reveal) */
+@keyframes pd-seg-in {
+  0% {
+    transform: scaleX(0.1);
+    opacity: 0;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+.pd-anim-seg {
+  transform-origin: left center;
+  animation: pd-seg-in 0.24s ease-out both;
+}
+
+/* invalid answer shake — red error under the input */
+@keyframes pd-error-in {
+  0% {
+    transform: translateY(4px);
+    opacity: 0;
+  }
+  12% {
+    transform: translateY(0) translateX(-4px);
+    opacity: 1;
+  }
+  28% {
+    transform: translateX(4px);
+  }
+  44% {
+    transform: translateX(-3px);
+  }
+  60% {
+    transform: translateX(2px);
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.pd-anim-error {
+  animation: pd-error-in 0.5s ease-out both;
+}
+
+/* the krillion's answer tag while it sinks — drifts down with the fish */
+@keyframes pd-tag-sink {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(120px);
+    opacity: 0;
+  }
+}
+.pd-anim-tag-sink {
+  animation: pd-tag-sink 1.5s ease-in both;
+}
+
+@keyframes pd-tag-rise {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120px);
+    opacity: 0;
+  }
+}
+.pd-anim-tag-rise {
+  animation: pd-tag-rise 1.5s ease-in both;
+}
+
+/* jellyfish drift — slow vertical float with a gentle sway */
+@keyframes pd-jelly {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-14px) translateX(6px);
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+}
+.pd-anim-jelly {
+  animation: pd-jelly 10s ease-in-out infinite;
+}
